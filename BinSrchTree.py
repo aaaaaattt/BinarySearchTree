@@ -53,3 +53,29 @@ def insert_bst(root, node):
     else :
         root.right = insert_bst(root.right, node)
     
+    return root     #root를 반환 (root는 변화 없음)
+
+def delete_bst (root, key) :
+    if root == None :
+        return root
+    
+    if key < root.key :
+        root.left = delete_bst(root.left, key)
+    elif key > root.key :
+        root.right = delete_bst(root.right,key)
+    
+    #key가 루트의 키와 같으면 root를 삭제
+    else:
+        #case1(단말 노드) 또는 case2(오른쪽 자식만 있는 경우)
+        if root.left == None:
+            return root.right
+        #case2(왼쪽 자식만 있는 경우)
+        if root.right == None:
+            return root.left
+        #case3(두 자식이 모두 있는 경우)
+        succ = search_min_bst(root.right)
+        root.key = succ.key
+        root.value = succ.value
+        root.right = delete_bst(root.right, succ.key)
+    
+    return root

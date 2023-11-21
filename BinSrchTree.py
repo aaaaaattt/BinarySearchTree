@@ -38,3 +38,18 @@ def search_min_bst(n) :
     while n != None and n.left != None:
         n = n.left
     return n
+
+#이진탐색트리의 삽입 연산
+def insert_bst(root, node):
+    if root == None:    #공백 노드에 도달하면, 이 위치에 삽입
+        return node     #node를 반환(이 노드가 현재 root 위치에 감)
+    
+    if node.key == root.key:    #동일한 키는 허용하지 않음
+        return root
+    
+    if node.key < root.key :
+        root.left = insert_bst(root.left, node)
+    
+    else :
+        root.right = insert_bst(root.right, node)
+    
